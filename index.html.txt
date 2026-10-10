@@ -1,0 +1,574 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+<meta name="description" content="Kareem Gaming - منصة ألعاب كريم القضاة. اكتشف ألعاب المتصفح واستمتع بتجربة لعب سهلة ومميزة.">
+<title>Kareem Gaming | عالم الألعاب</title>
+
+<style>
+:root {
+  --bg: #080b16;
+  --panel: #11182b;
+  --text: #f4f6ff;
+  --muted: #a8b1ca;
+  --purple: #8b5cf6;
+  --blue: #22d3ee;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+}
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.container { width: min(1120px, 92%); margin: auto; }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8,11,22,.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid #202943;
+}
+.nav {
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.logo {
+  font-size: 21px;
+  font-weight: 900;
+  direction: ltr;
+  background: linear-gradient(90deg,var(--blue),var(--purple));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+nav { display: flex; gap: 20px; flex-wrap: wrap; }
+nav a { color: var(--muted); font-size: 14px; }
+nav a:hover { color: var(--blue); }
+
+.hero {
+  padding: 85px 0 65px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%,#31205c 0%,transparent 60%);
+}
+.badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border: 1px solid #514080;
+  border-radius: 50px;
+  color: #c4b5fd;
+  font-size: 13px;
+}
+h1 { font-size: clamp(35px,6vw,64px); line-height: 1.25; margin: 20px 0; }
+.gradient {
+  background: linear-gradient(90deg,var(--blue),#a78bfa);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.hero p {
+  max-width: 650px;
+  margin: 0 auto 28px;
+  color: var(--muted);
+}
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 23px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(110deg,#7c3aed,#4f46e5);
+  transition: transform .2s,filter .2s;
+}
+.btn:hover { transform: translateY(-3px); filter: brightness(1.15); }
+.btn.secondary { background: #1a2440; border: 1px solid #344263; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  max-width: 600px;
+  margin: 40px auto 0;
+}
+.stat {
+  background: #11182b;
+  border: 1px solid #222d49;
+  border-radius: 15px;
+  padding: 14px;
+}
+.stat strong { display: block; color: var(--blue); font-size: 19px; }
+.stat span { color: var(--muted); font-size: 12px; }
+
+section { padding: 48px 0; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+h2 { font-size: 27px; margin: 0; }
+.muted { color: var(--muted); font-size: 14px; }
+
+.search {
+  width: 100%;
+  max-width: 350px;
+  background: #11182b;
+  color: white;
+  border: 1px solid #303b59;
+  border-radius: 12px;
+  padding: 12px 15px;
+  outline: none;
+}
+.search:focus { border-color: var(--blue); }
+
+.filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter {
+  background: #121a2e;
+  border: 1px solid #293550;
+  color: #dbe4ff;
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+.filter.active { background: #6d3ce5; border-color: #8b5cf6; }
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 18px;
+}
+.game {
+  overflow: hidden;
+  border: 1px solid #26314d;
+  border-radius: 17px;
+  background: var(--panel);
+  transition: transform .2s,border-color .2s;
+}
+.game:hover { transform: translateY(-5px); border-color: #8060e8; }
+.cover {
+  height: 155px;
+  display: grid;
+  place-items: center;
+  font-size: 63px;
+  background: radial-gradient(circle at 50% 20%,#34346d,#151c32 72%);
+}
+.game:nth-child(2) .cover { background: linear-gradient(135deg,#174657,#172039); }
+.game:nth-child(3) .cover { background: linear-gradient(135deg,#4c245e,#20203f); }
+.game:nth-child(4) .cover { background: linear-gradient(135deg,#55401c,#20263b); }
+.game:nth-child(5) .cover { background: linear-gradient(135deg,#174b39,#18243b); }
+.game:nth-child(6) .cover { background: linear-gradient(135deg,#5a2734,#202039); }
+.game-content { padding: 17px; }
+.game h3 { margin: 0 0 5px; font-size: 18px; }
+.game p { color: var(--muted); font-size: 13px; min-height: 44px; margin: 0 0 14px; }
+.game .btn { width: 100%; text-align: center; padding: 9px; }
+.tag { color: var(--blue); font-size: 12px; }
+
+.about {
+  background: linear-gradient(120deg,#11182b,#111128);
+  border: 1px solid #29304a;
+  border-radius: 22px;
+  padding: 30px;
+}
+.about p { color: var(--muted); }
+
+footer {
+  margin-top: 35px;
+  padding: 25px 0;
+  text-align: center;
+  border-top: 1px solid #202943;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  place-items: center;
+  padding: 18px;
+  background: rgba(0,0,0,.82);
+}
+.modal.open { display: grid; }
+.modal-box {
+  width: min(550px,100%);
+  padding: 25px;
+  background: #11182b;
+  border: 1px solid #394568;
+  border-radius: 20px;
+  text-align: center;
+}
+#target {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid #354364;
+  border-radius: 14px;
+  background: #080e20;
+  position: relative;
+  overflow: hidden;
+  margin: 16px 0;
+}
+#hit {
+  position: absolute;
+  display: none;
+  border: 0;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg,var(--blue),var(--purple));
+  box-shadow: 0 0 25px #7656ff;
+}
+.close { float: left; }
+#result { color: var(--blue); font-weight: bold; }
+
+@media(max-width:800px) {
+  .games { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .nav { padding: 12px 0; }
+  nav { gap: 12px; }
+}
+@media(max-width:520px) {
+  .games { grid-template-columns: 1fr; }
+  .cover { height: 180px; }
+  .hero { padding-top: 55px; }
+  .stats { gap: 7px; }
+  .stat { padding: 10px 5px; }
+  nav { font-size: 12px; gap: 10px; }
+  .logo { font-size: 17px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="logo" href="#home">KAREEM GAMING 🎮</a>
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#games">الألعاب</a>
+      <a href="#about">من نحن</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <span class="badge">🎮 عالمك للألعاب يبدأ هنا</span>
+      <h1>أهلًا بك في<br><span class="gradient">Kareem Gaming</span></h1>
+      <p>
+        أنا كريم القضاة، وهذا موقعي الخاص لعشاق الألعاب.
+        أنشأت هذه المنصة لتجمع الألعاب الممتعة في مكان واحد،
+        بواجهة سهلة وسريعة وتجربة تناسب الجميع.
+      </p>
+      <a href="#games" class="btn">استكشف الألعاب 🚀</a>
+      <a href="#about" class="btn secondary">تعرّف على الموقع</a>
+
+      <div class="stats">
+        <div class="stat"><strong>🎯</strong><span>سهولة الاستخدام</span></div>
+        <div class="stat"><strong>🌐</strong><span>من المتصفح</span></div>
+        <div class="stat"><strong>📱</strong><span>لكل الشاشات</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>مكتبة الألعاب 🕹️</h2>
+          <div class="muted">اختار لعبتك وابدأ المغامرة</div>
+        </div>
+        <input class="search" id="search" type="search"
+          placeholder="🔎 ابحث عن لعبة..." aria-label="ابحث عن لعبة">
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">الكل</button>
+        <button class="filter" data-filter="arcade">أركيد</button>
+        <button class="filter" data-filter="brain">ذكاء</button>
+        <button class="filter" data-filter="fun">ترفيه</button>
+      </div>
+
+      <div class="games" id="gameList">
+        <article class="game" data-category="arcade" data-name="اختبار السرعة">
+          <div class="cover">⚡</div>
+          <div class="game-content">
+            <span class="tag">أركيد</span>
+            <h3>اختبار سرعة النقر</h3>
+            <p>اختبر سرعتك وحاول الضغط على أكبر عدد من الأهداف خلال 10 ثوانٍ.</p>
+            <button class="btn" onclick="openGame()">العب الآن ▶</button>
+          </div>
+        </article>
+
+        <article class="game" data-category="brain" data-name="لعبة التخمين">
+          <div class="cover">🔢</div>
+          <div class="game-content">
+            <span class="tag">ذكاء</span>
+            <h3>خمن الرقم</h3>
+            <p>حاول اكتشاف الرقم السري من 1 إلى 20 بأقل عدد من المحاولات.</p>
+            <button class="btn" onclick="guessGame()">العب الآن ▶</button>
+          </div>
+        </article>
+
+        <article class="game" data-category="fun" data-name="حجر ورقة مقص">
+          <div class="cover">✊</div>
+          <div class="game-content">
+            <span class="tag">ترفيه</span>
+            <h3>حجر ورقة مقص</h3>
+            <p>تحدَّ الكمبيوتر بجولة سريعة من اللعبة الكلاسيكية.</p>
+            <button class="btn" onclick="rpsGame()">العب الآن ▶</button>
+          </div>
+        </article>
+
+        <article class="game" data-category="arcade" data-name="تحدي التركيز">
+          <div class="cover">🎯</div>
+          <div class="game-content">
+            <span class="tag">أركيد</span>
+            <h3>تحدي التركيز</h3>
+            <p>ابدأ باختبار سرعة النقر وحاول تحسين نتيجتك في كل مرة.</p>
+            <button class="btn" onclick="openGame()">العب الآن ▶</button>
+          </div>
+        </article>
+
+        <article class="game" data-category="brain" data-name="تحدي الحساب">
+          <div class="cover">🧠</div>
+          <div class="game-content">
+            <span class="tag">ذكاء</span>
+            <h3>تحدي الحساب</h3>
+            <p>حل مسألة رياضية عشوائية واختبر مهاراتك الذهنية.</p>
+            <button class="btn" onclick="mathGame()">العب الآن ▶</button>
+          </div>
+        </article>
+
+        <article class="game" data-category="fun" data-name="اضغط بسرعة">
+          <div class="cover">🚀</div>
+          <div class="game-content">
+            <span class="tag">ترفيه</span>
+            <h3>اضغط بسرعة</h3>
+            <p>هل تستطيع تحقيق نتيجة أعلى؟ جرّب تحدي سرعة النقر.</p>
+            <button class="btn" onclick="openGame()">العب الآن ▶</button>
+          </div>
+        </article>
+      </div>
+      <p id="empty" class="muted" hidden>ما لقينا ألعاب بهذا الاسم. جرّب كلمة ثانية.</p>
+      <p class="muted">ملاحظة: هذه ألعاب متصفح بسيطة مدمجة في الموقع. يمكن إضافة ألعاب أخرى لاحقًا.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="about">
+        <h2>من هو كريم القضاة؟ 👋</h2>
+        <p>
+          أنا كريم القضاة، مهتم بعالم التكنولوجيا والألعاب.
+          أنشأت Kareem Gaming ليكون مكانًا بسيطًا وممتعًا
+          لاكتشاف ألعاب المتصفح وتجربة تحديات جديدة.
+        </p>
+        <p>
+          هدفي أن يكون الموقع سهل الاستخدام، سريعًا،
+          ومنظمًا بحيث تستطيع الوصول إلى اللعبة التي تريدها بسهولة.
+        </p>
+        <a href="#games" class="btn">يلا نلعب 🎮</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    © <span id="year"></span> Kareem Gaming — صنعه كريم القضاة 💜
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="btn secondary close" onclick="closeGame()">إغلاق ✕</button>
+    <h2 id="modalTitle">🎯 لعبة</h2>
+    <div id="gameArea">
+      <p>جاهز للتحدي؟</p>
+    </div>
+    <div id="result" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+const modal = document.getElementById('modal');
+const area = document.getElementById('gameArea');
+const result = document.getElementById('result');
+let timer;
+let score = 0;
+let secret = 0;
+let attempts = 0;
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function showGame(title, html) {
+  clearInterval(timer);
+  document.getElementById('modalTitle').textContent = title;
+  area.innerHTML = html;
+  result.textContent = '';
+  modal.classList.add('open');
+}
+function closeGame() {
+  clearInterval(timer);
+  modal.classList.remove('open');
+}
+modal.addEventListener('click', e => {
+  if (e.target === modal) closeGame();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeGame();
+});
+
+function openGame() {
+  score = 0;
+  showGame('⚡ اختبار سرعة النقر', `
+    <p>اضغط على الدائرة بأسرع ما تستطيع خلال 10 ثوانٍ!</p>
+    <p>الوقت: <b id="time">10</b> | النقاط: <b id="score">0</b></p>
+    <div id="target"><button id="hit" aria-label="اضغط هنا"></button></div>
+    <button class="btn" id="start">ابدأ اللعب</button>
+  `);
+  document.getElementById('start').onclick = startClickGame;
+}
+function startClickGame() {
+  score = 0;
+  let time = 10;
+  const target = document.getElementById('target');
+  const hit = document.getElementById('hit');
+  const timeEl = document.getElementById('time');
+  const scoreEl = document.getElementById('score');
+  hit.style.display = 'block';
+  document.getElementById('start').disabled = true;
+
+  function move() {
+    const maxX = Math.max(0, target.clientWidth - 60);
+    const maxY = Math.max(0, target.clientHeight - 60);
+    hit.style.left = Math.random() * maxX + 'px';
+    hit.style.top = Math.random() * maxY + 'px';
+  }
+  hit.onclick = () => { score++; scoreEl.textContent = score; move(); };
+  move();
+  timer = setInterval(() => {
+    time--;
+    timeEl.textContent = time;
+    if (time <= 0) {
+      clearInterval(timer);
+      hit.style.display = 'none';
+      result.textContent = 'انتهى الوقت! نتيجتك: ' + score + ' نقطة 🏆';
+      document.getElementById('start').disabled = false;
+      document.getElementById('start').textContent = 'العب مرة أخرى';
+    }
+  }, 1000);
+}
+
+function guessGame() {
+  secret = Math.floor(Math.random() * 20) + 1;
+  attempts = 0;
+  showGame('🔢 خمن الرقم', `
+    <p>اختر رقمًا من 1 إلى 20.</p>
+    <input class="search" id="guess" type="number" min="1" max="20" placeholder="اكتب رقمك">
+    <br><br><button class="btn" id="check">تحقق</button>
+    <p id="hint" aria-live="polite"></p>
+  `);
+  document.getElementById('check').onclick = () => {
+    const val = Number(document.getElementById('guess').value);
+    const hint = document.getElementById('hint');
+    if (!Number.isInteger(val) || val < 1 || val > 20) {
+      hint.textContent = 'اكتب رقمًا صحيحًا من 1 إلى 20.';
+      return;
+    }
+    attempts++;
+    if (val === secret) {
+      hint.textContent = 'صح عليك! 🎉 عدد محاولاتك: ' + attempts;
+    } else {
+      hint.textContent = val < secret ? 'الرقم أكبر! ⬆️' : 'الرقم أصغر! ⬇️';
+    }
+  };
+}
+
+function rpsGame() {
+  showGame('✊ حجر ورقة مقص', `
+    <p>اختار حركتك:</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn" data-move="حجر">✊ حجر</button>
+      <button class="btn" data-move="ورقة">✋ ورقة</button>
+      <button class="btn" data-move="مقص">✌️ مقص</button>
+    </div>
+    <p id="rpsResult" aria-live="polite"></p>
+  `);
+  area.querySelectorAll('[data-move]').forEach(btn => {
+    btn.onclick = () => {
+      const moves = ['حجر','ورقة','مقص'];
+      const you = btn.dataset.move;
+      const cpu = moves[Math.floor(Math.random() * 3)];
+      let outcome = you === cpu ? 'تعادل! 🤝' :
+        ((you === 'حجر' && cpu === 'مقص') ||
+         (you === 'ورقة' && cpu === 'حجر') ||
+         (you === 'مقص' && cpu === 'ورقة')) ? 'فزت! 🏆' : 'الكمبيوتر فاز! 💻';
+      document.getElementById('rpsResult').textContent =
+        'أنت: ' + you + ' | الكمبيوتر: ' + cpu + ' — ' + outcome;
+    };
+  });
+}
+
+function mathGame() {
+  const a = Math.floor(Math.random() * 20) + 1;
+  const b = Math.floor(Math.random() * 20) + 1;
+  showGame('🧠 تحدي الحساب', `
+    <h3>${a} + ${b} = ؟</h3>
+    <input class="search" id="answer" type="number" placeholder="اكتب الإجابة">
+    <br><br><button class="btn" id="submitAnswer">تحقق</button>
+    <p id="mathResult" aria-live="polite"></p>
+  `);
+  document.getElementById('submitAnswer').onclick = () => {
+    const answer = Number(document.getElementById('answer').value);
+    document.getElementById('mathResult').textContent =
+      answer === a + b ? 'إجابة صحيحة! ممتاز 🎉' : 'حاول مرة ثانية!';
+  };
+}
+
+// البحث والتصنيفات
+const search = document.getElementById('search');
+const cards = [...document.querySelectorAll('.game')];
+let category = 'all';
+
+function filterGames() {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+  cards.forEach(card => {
+    const matchesCategory = category === 'all' || card.dataset.category === category;
+    const matchesSearch = (card.dataset.name + ' ' + card.innerText)
+      .toLowerCase().includes(query);
+    const show = matchesCategory && matchesSearch;
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  document.getElementById('empty').hidden = visible !== 0;
+}
+search.addEventListener('input', filterGames);
+document.querySelectorAll('.filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    category = btn.dataset.filter;
+    document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterGames();
+  });
+});
+</script>
+</body>
+</html>
+```
